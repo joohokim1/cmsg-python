@@ -1,4 +1,5 @@
-﻿{ "location_id" : 2, "full_loc" : "강원도 전체", "si_do" : "강원도", "si_gun_gu" : "" }
+﻿{ "location_id" : 2, "full_loc" : "강원도", "si_do" : "강원도", "si_gun_gu" : "" }
+{ "location_id" : 2, "full_loc" : "강원도 전체", "si_do" : "강원도", "si_gun_gu" : "" }
 { "location_id" : 3, "full_loc" : "강원도 강릉시", "si_do" : "강원도", "si_gun_gu" : "강릉시" }
 { "location_id" : 4, "full_loc" : "강원도 고성군", "si_do" : "강원도", "si_gun_gu" : "고성군" }
 { "location_id" : 5, "full_loc" : "강원도 동해시", "si_do" : "강원도", "si_gun_gu" : "동해시" }
@@ -17,6 +18,7 @@
 { "location_id" : 18, "full_loc" : "강원도 홍천군", "si_do" : "강원도", "si_gun_gu" : "홍천군" }
 { "location_id" : 19, "full_loc" : "강원도 화천군", "si_do" : "강원도", "si_gun_gu" : "화천군" }
 { "location_id" : 20, "full_loc" : "강원도 횡성군", "si_do" : "강원도", "si_gun_gu" : "횡성군" }
+{ "location_id" : 21, "full_loc" : "경기도", "si_do" : "경기도", "si_gun_gu" : "" }
 { "location_id" : 21, "full_loc" : "경기도 전체", "si_do" : "경기도", "si_gun_gu" : "" }
 { "location_id" : 22, "full_loc" : "경기도 가평군", "si_do" : "경기도", "si_gun_gu" : "가평군" }
 { "location_id" : 23, "full_loc" : "경기도 고양시", "si_do" : "경기도", "si_gun_gu" : "고양시" }
@@ -49,6 +51,7 @@
 { "location_id" : 50, "full_loc" : "경기도 포천시", "si_do" : "경기도", "si_gun_gu" : "포천시" }
 { "location_id" : 51, "full_loc" : "경기도 하남시", "si_do" : "경기도", "si_gun_gu" : "하남시" }
 { "location_id" : 52, "full_loc" : "경기도 화성시", "si_do" : "경기도", "si_gun_gu" : "화성시" }
+{ "location_id" : 53, "full_loc" : "경상남도", "si_do" : "경상남도", "si_gun_gu" : "" }
 { "location_id" : 53, "full_loc" : "경상남도 전체", "si_do" : "경상남도", "si_gun_gu" : "" }
 { "location_id" : 54, "full_loc" : "경상남도 거제시", "si_do" : "경상남도", "si_gun_gu" : "거제시" }
 { "location_id" : 55, "full_loc" : "경상남도 거창군", "si_do" : "경상남도", "si_gun_gu" : "거창군" }
@@ -63,16 +66,17 @@
 { "location_id" : 65, "full_loc" : "경상남도 진주시", "si_do" : "경상남도", "si_gun_gu" : "진주시" }
 { "location_id" : 67, "full_loc" : "경상남도 창녕군", "si_do" : "경상남도", "si_gun_gu" : "창녕군" }
 { "location_id" : 68, "full_loc" : "경상남도 창원시", "si_do" : "경상남도", "si_gun_gu" : "창원시" }
-{ "location_id" : 68, "full_loc" : "경상남도 창원시", "si_do" : "경상남도", "si_gun_gu" : "창원시 의창구" }
-{ "location_id" : 68, "full_loc" : "경상남도 창원시", "si_do" : "경상남도", "si_gun_gu" : "창원시 성산구" }
-{ "location_id" : 68, "full_loc" : "경상남도 창원시", "si_do" : "경상남도", "si_gun_gu" : "창원시 마산합포구" }
-{ "location_id" : 68, "full_loc" : "경상남도 창원시", "si_do" : "경상남도", "si_gun_gu" : "창원시 마산회원구" }
-{ "location_id" : 68, "full_loc" : "경상남도 창원시", "si_do" : "경상남도", "si_gun_gu" : "창원시 진해구" }
+{ "location_id" : 68, "full_loc" : "경상남도 창원시 의창구", "si_do" : "경상남도", "si_gun_gu" : "창원시 의창구" }
+{ "location_id" : 68, "full_loc" : "경상남도 창원시 성산구", "si_do" : "경상남도", "si_gun_gu" : "창원시 성산구" }
+{ "location_id" : 68, "full_loc" : "경상남도 창원시 마산합포구", "si_do" : "경상남도", "si_gun_gu" : "창원시 마산합포구" }
+{ "location_id" : 68, "full_loc" : "경상남도 창원시 마산회원구", "si_do" : "경상남도", "si_gun_gu" : "창원시 마산회원구" }
+{ "location_id" : 68, "full_loc" : "경상남도 창원시 진해구", "si_do" : "경상남도", "si_gun_gu" : "창원시 진해구" }
 { "location_id" : 69, "full_loc" : "경상남도 통영시", "si_do" : "경상남도", "si_gun_gu" : "통영시" }
 { "location_id" : 70, "full_loc" : "경상남도 하동군", "si_do" : "경상남도", "si_gun_gu" : "하동군" }
 { "location_id" : 71, "full_loc" : "경상남도 함안군", "si_do" : "경상남도", "si_gun_gu" : "함안군" }
 { "location_id" : 72, "full_loc" : "경상남도 함양군", "si_do" : "경상남도", "si_gun_gu" : "함양군" }
 { "location_id" : 73, "full_loc" : "경상남도 합천군", "si_do" : "경상남도", "si_gun_gu" : "합천군" }
+{ "location_id" : 74, "full_loc" : "경상북도", "si_do" : "경상북도", "si_gun_gu" : "" }
 { "location_id" : 74, "full_loc" : "경상북도 전체", "si_do" : "경상북도", "si_gun_gu" : "" }
 { "location_id" : 75, "full_loc" : "경상북도 경산시", "si_do" : "경상북도", "si_gun_gu" : "경산시" }
 { "location_id" : 76, "full_loc" : "경상북도 경주시", "si_do" : "경상북도", "si_gun_gu" : "경주시" }
@@ -97,12 +101,14 @@
 { "location_id" : 95, "full_loc" : "경상북도 청송군", "si_do" : "경상북도", "si_gun_gu" : "청송군" }
 { "location_id" : 96, "full_loc" : "경상북도 칠곡군", "si_do" : "경상북도", "si_gun_gu" : "칠곡군" }
 { "location_id" : 97, "full_loc" : "경상북도 포항시", "si_do" : "경상북도", "si_gun_gu" : "포항시" }
+{ "location_id" : 98, "full_loc" : "광주광역시", "si_do" : "광주광역시", "si_gun_gu" : "" }
 { "location_id" : 98, "full_loc" : "광주광역시 전체", "si_do" : "광주광역시", "si_gun_gu" : "" }
 { "location_id" : 99, "full_loc" : "광주광역시 광산구", "si_do" : "광주광역시", "si_gun_gu" : "광산구" }
 { "location_id" : 100, "full_loc" : "광주광역시 남구", "si_do" : "광주광역시", "si_gun_gu" : "남구" }
 { "location_id" : 101, "full_loc" : "광주광역시 동구", "si_do" : "광주광역시", "si_gun_gu" : "동구" }
 { "location_id" : 102, "full_loc" : "광주광역시 북구", "si_do" : "광주광역시", "si_gun_gu" : "북구" }
 { "location_id" : 103, "full_loc" : "광주광역시 서구", "si_do" : "광주광역시", "si_gun_gu" : "서구" }
+{ "location_id" : 104, "full_loc" : "대구광역시", "si_do" : "대구광역시", "si_gun_gu" : "" }
 { "location_id" : 104, "full_loc" : "대구광역시 전체", "si_do" : "대구광역시", "si_gun_gu" : "" }
 { "location_id" : 105, "full_loc" : "대구광역시 남구", "si_do" : "대구광역시", "si_gun_gu" : "남구" }
 { "location_id" : 106, "full_loc" : "대구광역시 달서구", "si_do" : "대구광역시", "si_gun_gu" : "달서구" }
@@ -112,12 +118,14 @@
 { "location_id" : 110, "full_loc" : "대구광역시 서구", "si_do" : "대구광역시", "si_gun_gu" : "서구" }
 { "location_id" : 111, "full_loc" : "대구광역시 수성구", "si_do" : "대구광역시", "si_gun_gu" : "수성구" }
 { "location_id" : 112, "full_loc" : "대구광역시 중구", "si_do" : "대구광역시", "si_gun_gu" : "중구" }
+{ "location_id" : 113, "full_loc" : "대전광역시", "si_do" : "대전광역시", "si_gun_gu" : "" }
 { "location_id" : 113, "full_loc" : "대전광역시 전체", "si_do" : "대전광역시", "si_gun_gu" : "" }
 { "location_id" : 114, "full_loc" : "대전광역시 대덕구", "si_do" : "대전광역시", "si_gun_gu" : "대덕구" }
 { "location_id" : 115, "full_loc" : "대전광역시 동구", "si_do" : "대전광역시", "si_gun_gu" : "동구" }
 { "location_id" : 116, "full_loc" : "대전광역시 서구", "si_do" : "대전광역시", "si_gun_gu" : "서구" }
 { "location_id" : 117, "full_loc" : "대전광역시 유성구", "si_do" : "대전광역시", "si_gun_gu" : "유성구" }
 { "location_id" : 118, "full_loc" : "대전광역시 중구", "si_do" : "대전광역시", "si_gun_gu" : "중구" }
+{ "location_id" : 119, "full_loc" : "부산광역시", "si_do" : "부산광역시", "si_gun_gu" : "" }
 { "location_id" : 119, "full_loc" : "부산광역시 전체", "si_do" : "부산광역시", "si_gun_gu" : "" }
 { "location_id" : 120, "full_loc" : "부산광역시 강서구", "si_do" : "부산광역시", "si_gun_gu" : "강서구" }
 { "location_id" : 121, "full_loc" : "부산광역시 금정구", "si_do" : "부산광역시", "si_gun_gu" : "금정구" }
@@ -135,6 +143,7 @@
 { "location_id" : 133, "full_loc" : "부산광역시 영도구", "si_do" : "부산광역시", "si_gun_gu" : "영도구" }
 { "location_id" : 134, "full_loc" : "부산광역시 중구", "si_do" : "부산광역시", "si_gun_gu" : "중구" }
 { "location_id" : 135, "full_loc" : "부산광역시 해운대구", "si_do" : "부산광역시", "si_gun_gu" : "해운대구" }
+{ "location_id" : 136, "full_loc" : "서울특별시", "si_do" : "서울특별시", "si_gun_gu" : "" }
 { "location_id" : 136, "full_loc" : "서울특별시 전체", "si_do" : "서울특별시", "si_gun_gu" : "" }
 { "location_id" : 137, "full_loc" : "서울특별시 강남구", "si_do" : "서울특별시", "si_gun_gu" : "강남구" }
 { "location_id" : 138, "full_loc" : "서울특별시 강동구", "si_do" : "서울특별시", "si_gun_gu" : "강동구" }
@@ -161,12 +170,14 @@
 { "location_id" : 159, "full_loc" : "서울특별시 종로구", "si_do" : "서울특별시", "si_gun_gu" : "종로구" }
 { "location_id" : 160, "full_loc" : "서울특별시 중구", "si_do" : "서울특별시", "si_gun_gu" : "중구" }
 { "location_id" : 161, "full_loc" : "서울특별시 중랑구", "si_do" : "서울특별시", "si_gun_gu" : "중랑구" }
+{ "location_id" : 162, "full_loc" : "울산광역시", "si_do" : "울산광역시", "si_gun_gu" : "" }
 { "location_id" : 162, "full_loc" : "울산광역시 전체", "si_do" : "울산광역시", "si_gun_gu" : "" }
 { "location_id" : 163, "full_loc" : "울산광역시 남구", "si_do" : "울산광역시", "si_gun_gu" : "남구" }
 { "location_id" : 164, "full_loc" : "울산광역시 동구", "si_do" : "울산광역시", "si_gun_gu" : "동구" }
 { "location_id" : 165, "full_loc" : "울산광역시 북구", "si_do" : "울산광역시", "si_gun_gu" : "북구" }
 { "location_id" : 166, "full_loc" : "울산광역시 울주군", "si_do" : "울산광역시", "si_gun_gu" : "울주군" }
 { "location_id" : 167, "full_loc" : "울산광역시 중구", "si_do" : "울산광역시", "si_gun_gu" : "중구" }
+{ "location_id" : 168, "full_loc" : "인천광역시", "si_do" : "인천광역시", "si_gun_gu" : "" }
 { "location_id" : 168, "full_loc" : "인천광역시 전체", "si_do" : "인천광역시", "si_gun_gu" : "" }
 { "location_id" : 169, "full_loc" : "인천광역시 강화군", "si_do" : "인천광역시", "si_gun_gu" : "강화군" }
 { "location_id" : 170, "full_loc" : "인천광역시 계양구", "si_do" : "인천광역시", "si_gun_gu" : "계양구" }
@@ -178,6 +189,7 @@
 { "location_id" : 176, "full_loc" : "인천광역시 연수구", "si_do" : "인천광역시", "si_gun_gu" : "연수구" }
 { "location_id" : 177, "full_loc" : "인천광역시 옹진군", "si_do" : "인천광역시", "si_gun_gu" : "옹진군" }
 { "location_id" : 178, "full_loc" : "인천광역시 중구", "si_do" : "인천광역시", "si_gun_gu" : "중구" }
+{ "location_id" : 179, "full_loc" : "전라남도", "si_do" : "전라남도", "si_gun_gu" : "" }
 { "location_id" : 179, "full_loc" : "전라남도 전체", "si_do" : "전라남도", "si_gun_gu" : "" }
 { "location_id" : 180, "full_loc" : "전라남도 강진군", "si_do" : "전라남도", "si_gun_gu" : "강진군" }
 { "location_id" : 181, "full_loc" : "전라남도 고흥군", "si_do" : "전라남도", "si_gun_gu" : "고흥군" }
@@ -201,6 +213,7 @@
 { "location_id" : 199, "full_loc" : "전라남도 함평군", "si_do" : "전라남도", "si_gun_gu" : "함평군" }
 { "location_id" : 200, "full_loc" : "전라남도 해남군", "si_do" : "전라남도", "si_gun_gu" : "해남군" }
 { "location_id" : 201, "full_loc" : "전라남도 화순군", "si_do" : "전라남도", "si_gun_gu" : "화순군" }
+{ "location_id" : 202, "full_loc" : "전라북도", "si_do" : "전라북도", "si_gun_gu" : "" }
 { "location_id" : 202, "full_loc" : "전라북도 전체", "si_do" : "전라북도", "si_gun_gu" : "" }
 { "location_id" : 203, "full_loc" : "전라북도 고창군", "si_do" : "전라북도", "si_gun_gu" : "고창군" }
 { "location_id" : 204, "full_loc" : "전라북도 군산시", "si_do" : "전라북도", "si_gun_gu" : "군산시" }
@@ -216,9 +229,11 @@
 { "location_id" : 214, "full_loc" : "전라북도 전주시", "si_do" : "전라북도", "si_gun_gu" : "전주시" }
 { "location_id" : 215, "full_loc" : "전라북도 정읍시", "si_do" : "전라북도", "si_gun_gu" : "정읍시" }
 { "location_id" : 216, "full_loc" : "전라북도 진안군", "si_do" : "전라북도", "si_gun_gu" : "진안군" }
+{ "location_id" : 217, "full_loc" : "제주특별자치도", "si_do" : "제주특별자치도", "si_gun_gu" : "" }
 { "location_id" : 217, "full_loc" : "제주특별자치도 전체", "si_do" : "제주특별자치도", "si_gun_gu" : "" }
 { "location_id" : 220, "full_loc" : "제주특별자치도 서귀포시", "si_do" : "제주특별자치도", "si_gun_gu" : "서귀포시" }
 { "location_id" : 221, "full_loc" : "제주특별자치도 제주시", "si_do" : "제주특별자치도", "si_gun_gu" : "제주시" }
+{ "location_id" : 222, "full_loc" : "충청남도", "si_do" : "충청남도", "si_gun_gu" : "" }
 { "location_id" : 222, "full_loc" : "충청남도 전체", "si_do" : "충청남도", "si_gun_gu" : "" }
 { "location_id" : 223, "full_loc" : "충청남도 공주시", "si_do" : "충청남도", "si_gun_gu" : "공주시" }
 { "location_id" : 224, "full_loc" : "충청남도 금산군", "si_do" : "충청남도", "si_gun_gu" : "금산군" }
@@ -234,6 +249,7 @@
 { "location_id" : 235, "full_loc" : "충청남도 청양군", "si_do" : "충청남도", "si_gun_gu" : "청양군" }
 { "location_id" : 236, "full_loc" : "충청남도 태안군", "si_do" : "충청남도", "si_gun_gu" : "태안군" }
 { "location_id" : 237, "full_loc" : "충청남도 홍성군", "si_do" : "충청남도", "si_gun_gu" : "홍성군" }
+{ "location_id" : 238, "full_loc" : "충청북도", "si_do" : "충청북도", "si_gun_gu" : "" }
 { "location_id" : 238, "full_loc" : "충청북도 전체", "si_do" : "충청북도", "si_gun_gu" : "" }
 { "location_id" : 239, "full_loc" : "충청북도 괴산군", "si_do" : "충청북도", "si_gun_gu" : "괴산군" }
 { "location_id" : 240, "full_loc" : "충청북도 단양군", "si_do" : "충청북도", "si_gun_gu" : "단양군" }
@@ -247,7 +263,7 @@
 { "location_id" : 249, "full_loc" : "충청북도 충주시", "si_do" : "충청북도", "si_gun_gu" : "충주시" }
 { "location_id" : 250, "full_loc" : "충청남도 계룡시", "si_do" : "충청남도", "si_gun_gu" : "계룡시" }
 { "location_id" : 6406, "full_loc" : "충청북도 증평군", "si_do" : "충청북도", "si_gun_gu" : "증평군" }
+{ "location_id" : 6474, "full_loc" : "세종특별자치시", "si_do" : "세종특별자치시", "si_gun_gu" : "" }
 { "location_id" : 6474, "full_loc" : "세종특별자치시 전체", "si_do" : "세종특별자치시", "si_gun_gu" : "" }
-{ "location_id" : 6474, "full_loc" : "세종특별자치시 ", "si_do" : "세종특별자치시", "si_gun_gu" : "" }
-{ "location_id" : 6487, "full_loc" : "임진강 수계지역(경기도 연천군,파주시) ", "si_do" : "경기도", "si_gun_gu" : "파주시" }
-{ "location_id" : 6487, "full_loc" : "임진강 수계지역(경기도 연천군,파주시) ", "si_do" : "경기도", "si_gun_gu" : "연천군" }
+{ "location_id" : 6487, "full_loc" : "임진강 수계지역(경기도 연천군,파주시)", "si_do" : "경기도", "si_gun_gu" : "파주시" }
+{ "location_id" : 6487, "full_loc" : "임진강 수계지역(경기도 연천군,파주시)", "si_do" : "경기도", "si_gun_gu" : "연천군" }

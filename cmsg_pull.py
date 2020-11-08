@@ -4,12 +4,14 @@
 import requests
 import re
 import json
+import time
 from kafka import KafkaProducer, KafkaConsumer, TopicPartition
 
+PROD = True
 TOPIC_NAME = 'cmsg-safekorea'
-page_size = 1000    # 1000 is good
+page_size = 1000  # 1000 is good
 skip_page_cnt = 42  # refer to total_page_cnt to set
-limit_seq = 99999   # for test, set less than current max md102_sn
+limit_seq = 99999  # for test, set less than current max md102_sn
 
 location_code = {}  # send_location -> {location_id, si_do, si_gun_gu}
 site_msg_total = -1
@@ -170,7 +172,7 @@ def print_last_messages(topic_name, cnt=5):
     if current_rec_cnt > 0:
         consumer.seek(tp, consumer.position(tp) - cnt)
         for msg in consumer:
-            print(msg)
+            print(msg.value)
 
 
 if __name__ == '__main__':
@@ -178,6 +180,9 @@ if __name__ == '__main__':
     get_site_msg_total()
     load_location_code()
     fetch_and_put_into_kafka()
+    while PROD:
+        time.sleep(30)
+        fetch_and_put_into_kafka()
     print_last_messages(TOPIC_NAME, cnt=200)
 
     print()
