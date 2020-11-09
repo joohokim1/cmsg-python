@@ -5,6 +5,7 @@ import requests
 import re
 import json
 import time
+import datetime
 from kafka import KafkaProducer, KafkaConsumer, TopicPartition
 
 PROD = True
@@ -152,7 +153,7 @@ def fetch_and_put_into_kafka():
         page_no -= 1
         producer.flush()
 
-    print(f'flushed {create_rec_cnt} rows.')
+    print(f'{datetime.datetime.now()} fetch_and_put_into_kafka(): flushed {create_rec_cnt} rows.')
 
 
 def print_last_messages(topic_name, cnt=5):

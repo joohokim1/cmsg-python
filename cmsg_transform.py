@@ -4,12 +4,13 @@
 import re
 import json
 import time
+import datetime
 from kafka import KafkaProducer, KafkaConsumer, TopicPartition
 
 SRC_TOPIC_NAME = 'cmsg-safekorea'
 DEST_TOPIC_NAME = 'cmsg-transformed'
 
-PROD = False
+PROD = True
 site_msg_total = -1
 site_msg_left = -1
 process_limit = 100
@@ -86,11 +87,11 @@ def transform(src_topic_name, dest_topic_name, dest_last_seq, skip_cnt=0):
         if '거리두기' in msg or '다중이용시설' in msg or '생계지원' in msg or '독감' in msg or '보이스피싱' in msg or \
             '선별진료소' in msg or '중대본' in msg or '방역수칙' in msg or '집회금지' in msg or '집합금지' in msg or \
             '긴급생계' in msg or '집합제한시설' in msg or '의무화' in msg or '생계기준' in msg or '방역완료' in msg or \
-            '소상공인' in msg or '저금리' in msg or '멧돼지' in msg or '종교활동' in msg:
+            '소상공인' in msg or '저금리' in msg or '멧돼지' in msg or '종교활동' in msg or '타지역' in msg or '전국' in msg:
             continue
 
         # extract /확진자 \d+명.*발생/ 1 time from msg
-        m = re.search('확진자 \d+명.*발생', msg)
+        m = re.search('확진자\s*\d+명.*발생', msg)
         c1 = m.group(0) if m else None
 
         # extract /\d+명.*확진/ 1 time from msg
@@ -109,9 +110,13 @@ def transform(src_topic_name, dest_topic_name, dest_last_seq, skip_cnt=0):
         m = re.search('\d+~\d+번.*발생', msg)
         c5 = m.group(0) if m else None
 
+        # extract /\d+~\d+번.*발생/ 1 time from msg
+        m = re.search('\d+번~\d+번.*발생', msg)
+        c6 = m.group(0) if m else None
+
         # extract /\d+번.*발생/ 1 time from msg
         m = re.search('\d+번.*발생', msg)
-        c6 = m.group(0) if m else None
+        c7 = m.group(0) if m else None
 
         # extract /\d+번.*동선/ 1 time from msg
         m = re.search('\d+번.*동선', msg)
@@ -122,7 +127,7 @@ def transform(src_topic_name, dest_topic_name, dest_last_seq, skip_cnt=0):
         t2 = m.group(0) if m else None
 
         # extract /동선안내/ 1 time from msg
-        m = re.search('동선안내', msg)
+        m = re.search('동선\s*안내', msg)
         t3 = m.group(0) if m else None
 
         # extract /방문자는/ 1 time from msg
@@ -133,11 +138,11 @@ def transform(src_topic_name, dest_topic_name, dest_last_seq, skip_cnt=0):
         m = re.search('방문하신', msg)
         t5 = m.group(0) if m else None
 
-        # extract /확진자 동선/ 1 time from msg
-        m = re.search('확진자 동선', msg)
+        # extract /확진자\s*동선/ 1 time from msg
+        m = re.search('확진자\s*동선', msg)
         t6 = m.group(0) if m else None
 
-        if c1 is None and c2 is None and c3 is None and c4 is None and c5 is None and c6 is None and \
+        if c1 is None and c2 is None and c3 is None and c4 is None and c5 is None and c6 is None and c7 is None and \
             t1 is None and t2 is None and t3 is None and t4 is None and t5 is None and t6 is None:
             continue
 
@@ -146,23 +151,23 @@ def transform(src_topic_name, dest_topic_name, dest_last_seq, skip_cnt=0):
 
         # replace /확진자 (\d+)명/ from extract_msg1 with '$1'
         if c1:
-            confirmed = int(re.sub('확진자 (\d+)명.*', r'\1', c1))
-            c2 = c3 = c4 = c5 = c6 = None
+            confirmed = int(re.sub('확진자\s*(\d+)명.*', r'\1', c1))
+            c2 = c3 = c4 = c5 = c6 = c7 = None
 
         # replace /(.*)(\d+)명(.*)/ from extract_msg1_1 with '$2'
         if c2:
             confirmed = int(re.sub('(.*)(\d+)명(.*)', r'\2', c2))
-            c3 = c4 = c5 = c6 = None
+            c3 = c4 = c5 = c6 = c7 = None
 
         # set extract_msg1_2 to if(isnull(`$col`), 0, 3)
         if c3:
             confirmed = 3
-            c4 = c5 = c6 = None
+            c4 = c5 = c6 = c7 = None
 
         # set extract_msg1_3 to if(isnull(`$col`), 0, 2)
         if c4:
             confirmed = 2
-            c5 = c6 = None
+            c5 = c6 = c7 = None
 
         # replace /(\d+)(~.*)/ from extract_msg1_4_1 with '$1'
         # replace /(.*~)(\d+)(번.*)/ from extract_msg1_4_1_1 with '$2'
@@ -170,11 +175,42 @@ def transform(src_topic_name, dest_topic_name, dest_last_seq, skip_cnt=0):
             start = re.sub('(\d+)~.*', r'\1', c5)
             end = re.sub('.*~(\d+)번.*', r'\1', c5)
             confirmed = int(end) - int(start) + 1
-            c6 = None
+
+            if confirmed < 0:
+                plus = int(start[:-1]) * 10
+                confirmed = plus + int(end) - int(start) + 1
+
+                if confirmed < 0:
+                    plus = int(start[:-2]) * 100
+                    confirmed = plus + int(end) - int(start) + 1
+
+                    if confirmed < 0:
+                        continue
+            c6 = c7 = None
+
+        if c6:
+            start = re.sub('(\d+)번~.*', r'\1', c6)
+            end = re.sub('.*~(\d+)번.*', r'\1', c6)
+            confirmed = int(end) - int(start) + 1
+
+            if confirmed < 0:
+                plus = int(start[:-1]) * 10
+                confirmed = plus + int(end) - int(start) + 1
+
+                if confirmed < 0:
+                    plus = int(start[:-2]) * 100
+                    confirmed = plus + int(end) - int(start) + 1
+
+                    if confirmed < 0:
+                        continue
+            c7 = None
 
         # set extract_msg1_5 to if(extract_msg1_4_1_1 > 0, '0', '1')
-        if c6:
+        if c7:
             confirmed = 1
+
+        if confirmed > 41:
+            continue
 
         if t1 or t2 or t3 or t4 or t5 or t6:
             tracing = '1'
@@ -199,7 +235,7 @@ def transform(src_topic_name, dest_topic_name, dest_last_seq, skip_cnt=0):
         create_rec_cnt += 1
 
     producer.flush()
-    print(f'flushed {create_rec_cnt} rows.')
+    print(f'{datetime.datetime.now()} transform(): flushed {create_rec_cnt} rows.')
 
 
 def print_last_messages(topic_name, cnt=5):
@@ -229,7 +265,7 @@ if __name__ == '__main__':
     print('dest_last_seq in {}: {}'.format(DEST_TOPIC_NAME, dest_last_seq))
     transform(SRC_TOPIC_NAME, DEST_TOPIC_NAME, dest_last_seq)
 
-    if PROD:
+    while PROD:
         time.sleep(30)
         dest_last_seq = get_last_seq(DEST_TOPIC_NAME)
         print('dest_last_seq in {}: {}'.format(DEST_TOPIC_NAME, dest_last_seq))
