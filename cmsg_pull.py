@@ -14,7 +14,6 @@ page_size = 1000  # 1000 is good
 skip_page_cnt = 42  # refer to total_page_cnt to set
 limit_seq = 99999  # for test, set less than current max md102_sn
 
-location_code = {}  # send_location -> {location_id, si_do, si_gun_gu}
 site_msg_total = -1
 total_page_cnt = -1
 last_seq = -1
@@ -60,13 +59,6 @@ def get_site_msg_total():
     print('site_msg_total in mepv2.safekorea.go.kr: {}'.format(site_msg_total))
 
 
-def load_location_code():
-    with open('location_code.json', encoding='utf-8-sig') as f:
-        for line in f:
-            rec = json.loads(line)
-            location_code[rec['full_loc']] = rec
-
-
 def fetch_and_put_into_kafka():
     global create_rec_cnt
     global global_lo
@@ -88,6 +80,8 @@ def fetch_and_put_into_kafka():
     producer = KafkaProducer(bootstrap_servers=['localhost:9092'],
                              value_serializer=lambda x:
                              json.dumps(x).encode('utf-8'))
+
+    create_rec_cnt_local = 0
 
     while True:
         r = requests.get(
@@ -117,28 +111,17 @@ def fetch_and_put_into_kafka():
             m = re.search('<h1>.*송출지역.*</h1>\s*<h2>(.*)</h2>', r2.text)
             send_location = m.group(1)
 
-            # delete rows where contains(location_id, ',')
-            # if ',' in send_location:
-            #     continue
-
-            # location_record = location_code[send_location]
             print(f'seq={seq} createDate={row["createDate"]}, send_location={send_location}, msg={row["msg"]}')
 
             d = dict()
-            # d['seq'] = seq
             d['md102_sn'] = seq
             d['createDate'] = row['createDate']
             d['send_location'] = send_location
-            # d['location_id'] = location_record['location_id']
-            # d['si_do'] = location_record['si_do']
-            # d['si_gun_gu'] = location_record['si_gun_gu']
-            # d['dong'] = []
             d['msg'] = row['msg']
-            # d['tracing'] = '0'
-            # d['confirmed'] = 1
 
             producer.send(TOPIC_NAME, value=d)
             create_rec_cnt += 1
+            create_rec_cnt_local += 1
 
         print(f'({lo}~{hi})')
         global_lo = min(global_lo, lo)
@@ -153,7 +136,7 @@ def fetch_and_put_into_kafka():
         page_no -= 1
         producer.flush()
 
-    print(f'{datetime.datetime.now()} fetch_and_put_into_kafka(): flushed {create_rec_cnt} rows.')
+    print(f'{datetime.datetime.now()} fetch_and_put_into_kafka(): flushed {create_rec_cnt_local} rows.')
 
 
 def print_last_messages(topic_name, cnt=5):
@@ -179,7 +162,6 @@ def print_last_messages(topic_name, cnt=5):
 if __name__ == '__main__':
     print('last_md102_sn: {}'.format(get_last_seq(TOPIC_NAME)))
     get_site_msg_total()
-    load_location_code()
     fetch_and_put_into_kafka()
     while PROD:
         time.sleep(30)
