@@ -67,6 +67,8 @@ def fetch_and_put_into_kafka():
     global page_no_hi
     global total_page_cnt
 
+    last_seq = get_last_seq(TOPIC_NAME)
+
     full_loaded_page_cnt = int(site_msg_total / page_size)
     last_page_record_cnt = site_msg_total % page_size
 
