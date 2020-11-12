@@ -6,16 +6,17 @@ import json
 import time
 import datetime
 from kafka import KafkaProducer, KafkaConsumer, TopicPartition
+import sys
 
-SRC_TOPIC_NAME = 'cmsg-safekorea'
-DEST_TOPIC_NAME = 'cmsg-transformed'
+if len(sys.argv) != 4:
+    print(f'Usage: python3 {sys.argv[0]} <src_topic> <target_topic> <prod>')
+    print(f'Example: python3 {sys.argv[0]} cmsg-safekorea covid-msg True')
+    exit(-1)
 
-PROD = True
-site_msg_total = -1
-site_msg_left = -1
-process_limit = 100
+SRC_TOPIC_NAME, DEST_TOPIC_NAME = sys.argv[1:3]
+PROD = bool(sys.argv[3])
+
 location_code = {}  # send_location -> {location_id, si_do, si_gun_gu}
-record_stack = []
 
 
 def get_last_seq(topic_name):

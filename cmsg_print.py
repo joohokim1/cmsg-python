@@ -3,6 +3,14 @@
 
 import json
 from kafka import KafkaConsumer, TopicPartition
+import sys
+
+if len(sys.argv) != 2:
+    print(f'Usage: python3 {sys.argv[0]} <topic>')
+    print(f'Example: python3 {sys.argv[0]} covid-msg')
+    exit(-1)
+
+TOPIC = sys.argv[1]
 
 def print_last_messages(topic_name, cnt=1000000):
     global current_rec_cnt
@@ -25,7 +33,7 @@ def print_last_messages(topic_name, cnt=1000000):
 
 
 if __name__ == '__main__':
-    print_last_messages('cmsg-transformed')
+    print_last_messages(TOPIC)
 
 
 # eof

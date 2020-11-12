@@ -14,7 +14,7 @@ if len(sys.argv) != 8:
     print(f'Example: python3 {sys.argv[0]} localhost 3306 covid covid covid covid_stat True')
     exit(-1)
 
-(HOST, PORT, USER, PASSWD, DB, TABLE) = sys.argv[1:7]
+HOST, PORT, USER, PASSWD, DB, TABLE = sys.argv[1:7]
 PROD = bool(sys.argv[7])
 
 AUTH = 'hCTKxSxsFFXHAn3gYSeFfp7Wq8HpNNXC19VgcbSxCbLucH8lF8ybI5LpMY9KXiBObsKiyiNmxLJB2pwJFpXBLQ%3D%3D'

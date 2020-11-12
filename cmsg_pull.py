@@ -7,12 +7,26 @@ import json
 import time
 import datetime
 from kafka import KafkaProducer, KafkaConsumer, TopicPartition
+import sys
 
-PROD = True
-TOPIC_NAME = 'cmsg-safekorea'
-page_size = 1000  # 1000 is good
-skip_page_cnt = 42  # refer to total_page_cnt to set
-limit_seq = 99999  # for test, set less than current max md102_sn
+argc = len(sys.argv)
+if argc not in range(3, 5):
+    print(f'Usage: python3 {sys.argv[0]} <target_topic> <prod> [<skip_page_cnt>]')
+    print(f'Example: python3 {sys.argv[0]} cmsg-safekorea True')
+    exit(-1)
+
+TOPIC_NAME, PROD = sys.argv[1], bool(sys.argv[2])
+if argc == 4:
+    SKIP_PAGE_CNT = int(sys.argv[3])    # refer to total_page_cnt to set. 42 is good for 2020.11.12 when PAGE_SIZE=1000
+else:
+    SKIP_PAGE_CNT = 0
+
+URL_FOR_CNT = 'http://mepv2.safekorea.go.kr/disasterBreaking/showList2.do?rows=1&page=1&nowPage=&locationCode='
+URL_FOR_MSG = 'http://mepv2.safekorea.go.kr/disasterBreaking/showList2.do'
+URL_FOR_DTL = 'http://mepv2.safekorea.go.kr/disaster/showBreakingDetail.do'
+
+PAGE_SIZE = 1000  # 1000 is good
+LIMIT_SEQ = 99999  # for test, set less than current max md102_sn
 
 site_msg_total = -1
 total_page_cnt = -1
@@ -54,7 +68,13 @@ def get_last_seq(topic_name):
 def get_site_msg_total():
     global site_msg_total
 
-    r = requests.get('http://mepv2.safekorea.go.kr/disasterBreaking/showList2.do?rows=1&page=1&nowPage=&locationCode=')
+    while True:
+        r = requests.get(URL_FOR_CNT)
+        if r.status_code == 200:
+            break
+        print(f'error while GET {URL_FOR_CNT}: status={r.status_code}')
+        time.sleep(0.1)
+
     site_msg_total = r.json()['total']
     print('site_msg_total in mepv2.safekorea.go.kr: {}'.format(site_msg_total))
 
@@ -69,15 +89,15 @@ def fetch_and_put_into_kafka():
 
     last_seq = get_last_seq(TOPIC_NAME)
 
-    full_loaded_page_cnt = int(site_msg_total / page_size)
-    last_page_record_cnt = site_msg_total % page_size
+    full_loaded_page_cnt = int(site_msg_total / PAGE_SIZE)
+    last_page_record_cnt = site_msg_total % PAGE_SIZE
 
     if last_page_record_cnt == 0:
         page_no = full_loaded_page_cnt
     else:
         page_no = full_loaded_page_cnt + 1
 
-    page_no -= skip_page_cnt
+    page_no -= SKIP_PAGE_CNT
 
     producer = KafkaProducer(bootstrap_servers=['localhost:9092'],
                              value_serializer=lambda x:
@@ -86,8 +106,12 @@ def fetch_and_put_into_kafka():
     create_rec_cnt_local = 0
 
     while True:
-        r = requests.get(
-            'http://mepv2.safekorea.go.kr/disasterBreaking/showList2.do?rows={}&page={}'.format(page_size, page_no))
+        url = f'{URL_FOR_MSG}?rows={PAGE_SIZE}&page={page_no}'
+        r = requests.get(url)
+        if r.status_code != 200:
+            print(f'error while GET {url}: status={r.status_code}')
+            time.sleep(0.1)
+            continue
         total_page_cnt = r.json()['total']
 
         print(f'GET page# {page_no}: record_cnt={len(r.json()["rows"])}', end=' ')
@@ -103,17 +127,24 @@ def fetch_and_put_into_kafka():
             lo = min(lo, seq)
             hi = max(hi, seq)
 
-            if seq > limit_seq:
+            if seq > LIMIT_SEQ:
                 break
 
             if seq <= last_seq:
                 continue
 
-            r2 = requests.get('http://mepv2.safekorea.go.kr/disaster/showBreakingDetail.do?seq={}'.format(seq))
+            url2 = f'{URL_FOR_DTL}?seq={seq}'
+            while True:
+                r2 = requests.get(url2)
+                if r2.status_code == 200:
+                    break
+                print(f'error while GET {url2}: status={r2.status_code}')
+                time.sleep(0.1)
+
             m = re.search('<h1>.*송출지역.*</h1>\s*<h2>(.*)</h2>', r2.text)
             send_location = m.group(1)
 
-            print(f'seq={seq} createDate={row["createDate"]}, send_location={send_location}, msg={row["msg"]}')
+#print(f'seq={seq} createDate={row["createDate"]}, send_location={send_location}, msg={row["msg"]}')
 
             d = dict()
             d['md102_sn'] = seq
@@ -129,7 +160,7 @@ def fetch_and_put_into_kafka():
         global_lo = min(global_lo, lo)
         global_hi = max(global_hi, hi)
 
-        if seq > limit_seq:
+        if seq > LIMIT_SEQ:
             break
 
         if page_no == 1:
@@ -163,6 +194,7 @@ def print_last_messages(topic_name, cnt=5):
 
 if __name__ == '__main__':
     print('last_md102_sn: {}'.format(get_last_seq(TOPIC_NAME)))
+    print(f'skip_page_cnt: {SKIP_PAGE_CNT}')
     get_site_msg_total()
     fetch_and_put_into_kafka()
     while PROD:
@@ -175,9 +207,9 @@ if __name__ == '__main__':
     print(f'Created {create_rec_cnt} records in this execution.')
     print(f'Current total records: {current_rec_cnt}')
 
-    print(f'Page size was {page_size}')
+    print(f'Page size was {PAGE_SIZE}')
     print(f'Total page count was {total_page_cnt}')
-    print(f'Skipped {skip_page_cnt} pages')
+    print(f'Skipped {SKIP_PAGE_CNT} pages')
 
     print(f'Scanned page# {page_no_lo} ~ page# {page_no_hi} ({global_lo} ~ {global_hi})')
 
