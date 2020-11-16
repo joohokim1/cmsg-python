@@ -29,7 +29,12 @@ while True:
     try:
         print(f'Connecting to Open API ... URL={URL} START={START} END={END}')
 
-        r = requests.get(f'{URL}?serviceKey={AUTH}&pageNo=1&numOfRows=50&startCreateDt={START}&endCreateDt={END}')
+        while True:
+            r = requests.get(f'{URL}?serviceKey={AUTH}&pageNo=1&numOfRows=50&startCreateDt={START}&endCreateDt={END}')
+            if r.status_code == 200:
+                break
+            print(f'error while GET {URL}: status={r.status_code}')
+            time.sleep(3)
         d = xmltodict.parse(r.text)
         rows = d['response']['body']['items']['item']
 
