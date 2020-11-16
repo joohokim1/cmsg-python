@@ -24,6 +24,8 @@ START = '20200410'
 END = '99991231'
 
 while True:
+    db = None
+
     try:
         print(f'Connecting to Open API ... URL={URL} START={START} END={END}')
 
@@ -84,6 +86,7 @@ while True:
     print(f'Sleep for 600 sec ... at {datetime.datetime.now()}')
     time.sleep(600)
 
-db.close()
+if db:
+    db.close()
 
 # eof
