@@ -73,15 +73,16 @@ while True:
         db.commit()
     except Exception as e:
         print(e)
-        db.rollback()
-        db.close()
+        if db:
+            db.rollback()
+            db.close()
         exit(-1)
 
     if not PROD:
         break
 
-    print(f'Sleep for 30 sec ... at {datetime.datetime.now()}')
-    time.sleep(30)
+    print(f'Sleep for 600 sec ... at {datetime.datetime.now()}')
+    time.sleep(600)
 
 db.close()
 
