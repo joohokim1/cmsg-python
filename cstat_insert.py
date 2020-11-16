@@ -31,11 +31,13 @@ while True:
 
         while True:
             r = requests.get(f'{URL}?serviceKey={AUTH}&pageNo=1&numOfRows=50&startCreateDt={START}&endCreateDt={END}')
-            if r.status_code == 200:
+            d = xmltodict.parse(r.text)
+            if d['response']['header']['resultCode'] != '99':
                 break
-            print(f'error while GET {URL}: status={r.status_code}')
+            print(f'error while GET {URL}: LIMITED NUMBER OF SERVICE REQUESTS EXCEEDS ERROR.')
+            print(f'Sleep for 3 sec ... at {datetime.datetime.now()}')
             time.sleep(3)
-        d = xmltodict.parse(r.text)
+
         rows = d['response']['body']['items']['item']
 
         print(f'Connecting to DB ... HOST={HOST} PORT={PORT} USER={USER} DB={DB} TABLE={TABLE} PROD={PROD}')
