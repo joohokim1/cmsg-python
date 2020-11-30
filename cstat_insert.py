@@ -45,7 +45,7 @@ while True:
         db = pymysql.connect(HOST, USER, PASSWD, DB)
         cursor = db.cursor()
 
-        for row in reversed(rows):
+        for row in reversed(sorted(rows, key=lambda x: x['updateDt'])):
             base_date = re.sub('(\d+)[^\d]+(\d+)[^\d]+(\d+).*', r'\1.\2.\3', row['stdDay'])
             y = int(re.sub('(\d+)\.(\d+)\.(\d+)', r'\1', base_date))
             m = int(re.sub('(\d+)\.(\d+)\.(\d+)', r'\2', base_date))
